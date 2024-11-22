@@ -1,10 +1,29 @@
 version: "3"
 services:
   server:
-    build: SpringTest
+    build: ./
     ports:
       - 9090:9090
+    networks:
+      - app-network
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/testdb # MongoDB connection string
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:5.0
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    networks:
+      - app-network
+    volumes:
+      - mongo-data:/data/db # Persist MongoDB data
 
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  mongo-data:
