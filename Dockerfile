@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-EXPOSE 9090
+EXPOSE 9090 8080
 
 RUN mvn clean install
 
